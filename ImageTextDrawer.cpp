@@ -15,13 +15,14 @@ CImageTextDrawer::~CImageTextDrawer()
 void CImageTextDrawer::drawTextOnImage(QPainter& painter, const stTextDrawInfo& info)
 {
 	painter.save();
+	painter.setRenderHint(QPainter::HighQualityAntialiasing);
 	painter.setBrush(Qt::transparent);
 	painter.setPen(info.color);
 	painter.setFont(info.font);
 
 	QFontMetrics fontM(info.font);
 	QRect textBR = fontM.boundingRect(info.text);
-	painter.drawText(info.pos.x(), info.pos.y() + textBR.height() /2.0, info.text);
+	painter.drawText(info.pos.x(), info.pos.y() + textBR.height(), info.text);
 
 	//TODO: Ãè±ßºÍÐý×ª
 	painter.restore();
@@ -41,7 +42,7 @@ QImage CImageTextDrawer::outputImage(const QColor& bgColor)
 	return image;
 }
 
-void CImageTextDrawer::addText(const QString& text, const QColor& color, const QFont& font, const QPoint& pos, int strokeSize /*= 0*/, const QColor& storkeColor /*= Qt::lightGray*/, bool isVertical /*= false*/)
+QString CImageTextDrawer::addText(const QString& text, const QColor& color, const QFont& font, const QPoint& pos, int strokeSize /*= 0*/, const QColor& storkeColor /*= Qt::lightGray*/, bool isVertical /*= false*/)
 {
 	stTextDrawInfo drawInfo;
 	drawInfo.text = text;
@@ -53,4 +54,6 @@ void CImageTextDrawer::addText(const QString& text, const QColor& color, const Q
 	drawInfo.isVertical = isVertical;
 
 	m_listDrawInfo.append(drawInfo);
+
+	return drawInfo.id;
 }

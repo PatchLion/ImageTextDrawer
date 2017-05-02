@@ -21,10 +21,13 @@ private:
 	struct stTextDrawInfo
 	{
 		stTextDrawInfo()
+			: id(QUuid::createUuid().toString())
 		{
 			strokeSize = 0;
 			isVertical = false;
 		}
+
+		const QString id;
 		QString text;
 		QColor color;
 		QFont font;
@@ -43,6 +46,14 @@ public:
 
 public:
 	/*
+	*Method: setImageSize
+	*Descrption: 设置图片大小
+	*Returns: void
+	*Parameter: (const QSize &)size
+	*/
+	void setImageSize(const QSize& size) { m_imageSize = size; }
+
+	/*
 	*Method: addText		
 	*Descrption:		添加文字
 	*Returns: void
@@ -53,8 +64,14 @@ public:
 	*Parameter: (const QColor &)storkeColor 描边颜色
 	*Parameter: (bool)isVertical 是否竖排
 	*/
-	void addText(const QString& text, const QColor& color, const QFont& font, const QPoint& pos, int strokeSize = 0, const QColor& storkeColor = Qt::lightGray, bool isVertical = false);
+	QString addText(const QString& text, const QColor& color, const QFont& font, const QPoint& pos, int strokeSize = 0, const QColor& storkeColor = Qt::lightGray, bool isVertical = false);
 
+	/*
+	*Method: clearTexts
+	*Descrption: 清空文字
+	*Returns: void
+	*/
+	void clearTexts() { m_listDrawInfo.clear(); }
 
 	/*
 	*Method: outputImage
