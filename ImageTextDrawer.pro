@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = ImageTextDrawer
-QT += core gui
+QT += core gui widgets
 CONFIG += debug console
 include(public.pri)
 INCLUDEPATH += .
